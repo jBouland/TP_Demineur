@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public abstract class Plateau {
     
-    public abstract ArrayList<Case> getVoisin(Case c);
+    public abstract ArrayList<Case> getVoisins(Case c);
     
     
     

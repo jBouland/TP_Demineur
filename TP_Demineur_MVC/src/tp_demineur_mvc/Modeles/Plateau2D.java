@@ -18,7 +18,7 @@ public class Plateau2D extends Plateau {
     private int hauteur;
 
     @Override
-    public ArrayList<Case> getVoisin(Case c) {
+    public ArrayList<Case> getVoisins(Case c) {
         ArrayList<Case> cases = new ArrayList<>();
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < longueur; j++) {

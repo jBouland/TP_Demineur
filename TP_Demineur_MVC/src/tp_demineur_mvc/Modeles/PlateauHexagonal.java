@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PlateauHexagonal extends Plateau {
 
     @Override
-    public ArrayList<Case> getVoisin(Case c) {
+    public ArrayList<Case> getVoisins(Case c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
