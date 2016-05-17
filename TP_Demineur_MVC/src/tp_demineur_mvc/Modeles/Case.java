@@ -13,14 +13,21 @@ import java.util.ArrayList;
  */
 public class Case {
 
+    public enum etat {
+        vide,
+        drapeau,
+        interrogation,
+    }
     private boolean visite;
     private int nombreMinesAutour;
     private boolean mine;
     private Plateau plateau;
+    private etat etatcase;
 
     public Case(Plateau p) {
         visite = false;
         plateau = p;
+        etatcase = etat.vide;
     }
 
     public boolean getVisite() {
@@ -30,11 +37,11 @@ public class Case {
     public int getNombreMinesAutour() {
         ArrayList<Case> casesVoisines = plateau.getVoisins(this);
         int nbmine = 0;
-            for (Case c : casesVoisines) {
-                if(c.mine==true){
-                    nbmine++;
-                }
+        for (Case c : casesVoisines) {
+            if (c.mine == true) {
+                nbmine++;
             }
+        }
         return nbmine;
     }
 
@@ -43,12 +50,27 @@ public class Case {
     }
 
     public void majClick() {
+        if(mine){
+            //perdre
+        }
         if (!visite && nombreMinesAutour == 0) {
             ArrayList<Case> casesVoisines = plateau.getVoisins(this);
             for (Case c : casesVoisines) {
                 c.visite = true;
                 c.majClick();
             }
+        }
+    }
+
+    public void majClickdroit() {
+        if(etatcase == etat.vide){
+            etatcase = etat.drapeau;
+        }
+        if(etatcase == etat.drapeau){
+            etatcase = etat.interrogation;
+        }
+        if(etatcase == etat.interrogation){
+            etatcase = etat.vide;
         }
     }
 
