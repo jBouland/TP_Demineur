@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author Epulapp
  */
 public class Case {
+
     private boolean visite;
     private int nombreMinesAutour;
     private boolean mine;
@@ -27,25 +28,28 @@ public class Case {
     }
 
     public int getNombreMinesAutour() {
-        return nombreMinesAutour;
+        ArrayList<Case> casesVoisines = plateau.getVoisins(this);
+        int nbmine = 0;
+            for (Case c : casesVoisines) {
+                if(c.mine==true){
+                    nbmine++;
+                }
+            }
+        return nbmine;
     }
 
     public boolean isMine() {
         return mine;
     }
-    
-    
-    public void majClick(){
-        if(!visite && nombreMinesAutour ==0){
-            ArrayList<Case> casesVoisines = plateau.getVoisins();
-            for(Case c : casesVoisines){
+
+    public void majClick() {
+        if (!visite && nombreMinesAutour == 0) {
+            ArrayList<Case> casesVoisines = plateau.getVoisins(this);
+            for (Case c : casesVoisines) {
                 c.visite = true;
                 c.majClick();
             }
         }
     }
-    
-    
-    
-    
+
 }
