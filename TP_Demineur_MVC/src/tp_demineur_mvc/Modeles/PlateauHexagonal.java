@@ -5,10 +5,17 @@
  */
 package tp_demineur_mvc.Modeles;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Epulapp
  */
 public class PlateauHexagonal extends Plateau {
+
+    @Override
+    public ArrayList<Case> getVoisin(Case c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

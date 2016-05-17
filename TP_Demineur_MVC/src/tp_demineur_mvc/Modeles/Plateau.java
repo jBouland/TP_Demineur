@@ -5,10 +5,18 @@
  */
 package tp_demineur_mvc.Modeles;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Epulapp
  */
 public abstract class Plateau {
+    
+    public abstract ArrayList<Case> getVoisin(Case c);
+    
+    
+    
+    
     
 }
