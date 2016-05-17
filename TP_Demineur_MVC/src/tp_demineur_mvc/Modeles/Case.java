@@ -10,5 +10,5 @@ package tp_demineur_mvc.Modeles;
  * @author Epulapp
  */
 public class Case {
-    
+    private String mdr;
 }
