@@ -17,13 +17,24 @@ public class Plateau2D extends Plateau {
     private int longueur;
     private int hauteur;
 
-    public Plateau2D() {
+    public Plateau2D(int hauteur, int longueur) {
+        this.hauteur = hauteur;
+        this.longueur = longueur;
+        
         grille = new Case[hauteur][longueur];
         for(int i=0;i<hauteur;i++){
             grille[i] = new Case[longueur];
             for(int j=0;j<longueur;j++){
                 grille[i][j] = new Case(this);
             }
+        }
+    }
+    
+    public Case getCase(int i, int j){
+        if(i>=0 && i<hauteur && j>=0 && j<longueur ){
+            return grille[i][j];
+        }else{
+            return null;
         }
     }
 
@@ -33,9 +44,9 @@ public class Plateau2D extends Plateau {
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < longueur; j++) {
                 if (grille[i][j] == c) {
-                    for (int a = i - 1; a < i + 1; a++) {
-                        for (int b = j - 1; b < j + 1; b++) {
-                            if (a > 0 && a < hauteur && b > 0 && b < longueur) {
+                    for (int a = i - 1; a <= i + 1; a++) {
+                        for (int b = j - 1; b <= j + 1; b++) {
+                            if (a >= 0 && a < hauteur && b >= 0 && b < longueur) {
                                 if (!(a == i && b == j)) {
                                     cases.add(grille[i][j]);
                                 }

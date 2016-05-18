@@ -12,7 +12,7 @@ package tp_demineur_mvc.Modeles;
 public class Jeu {
     private Plateau2D plateau;
     public Jeu() {
-        Plateau2D plateau = new Plateau2D();
+        Plateau2D plateau = new Plateau2D(10, 10);
         
     }
 }
