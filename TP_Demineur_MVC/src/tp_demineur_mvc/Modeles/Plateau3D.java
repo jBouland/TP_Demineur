@@ -17,5 +17,10 @@ public class Plateau3D extends Plateau{
     public ArrayList<Case> getVoisins(Case c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void generateLevel(int nombreMine) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

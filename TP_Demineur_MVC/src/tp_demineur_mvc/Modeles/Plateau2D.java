@@ -48,7 +48,7 @@ public class Plateau2D extends Plateau {
                         for (int b = j - 1; b <= j + 1; b++) {
                             if (a >= 0 && a < hauteur && b >= 0 && b < longueur) {
                                 if (!(a == i && b == j)) {
-                                    cases.add(grille[i][j]);
+                                    cases.add(grille[a][b]);
                                 }
                             }
                         }
@@ -58,6 +58,11 @@ public class Plateau2D extends Plateau {
             }
         }
         return null;
+    }
+
+    @Override
+    public void generateLevel(int nombreMines) {
+        
     }
 
 }

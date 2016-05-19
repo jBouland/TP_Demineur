@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public abstract class Plateau {
     
     public abstract ArrayList<Case> getVoisins(Case c);
+    public abstract void generateLevel(int nombreMine);
     
     
     
