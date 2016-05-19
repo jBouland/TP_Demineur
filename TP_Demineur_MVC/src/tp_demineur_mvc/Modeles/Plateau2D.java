@@ -20,20 +20,20 @@ public class Plateau2D extends Plateau {
     public Plateau2D(int hauteur, int longueur) {
         this.hauteur = hauteur;
         this.longueur = longueur;
-        
+
         grille = new Case[hauteur][longueur];
-        for(int i=0;i<hauteur;i++){
+        for (int i = 0; i < hauteur; i++) {
             grille[i] = new Case[longueur];
-            for(int j=0;j<longueur;j++){
+            for (int j = 0; j < longueur; j++) {
                 grille[i][j] = new Case(this);
             }
         }
     }
-    
-    public Case getCase(int i, int j){
-        if(i>=0 && i<hauteur && j>=0 && j<longueur ){
+
+    public Case getCase(int i, int j) {
+        if (i >= 0 && i < hauteur && j >= 0 && j < longueur) {
             return grille[i][j];
-        }else{
+        } else {
             return null;
         }
     }
@@ -62,7 +62,15 @@ public class Plateau2D extends Plateau {
 
     @Override
     public void generateLevel(int nombreMines) {
-        
+        if (nombreMines < longueur * hauteur) {
+            while (nombreMines > 0) {
+                double randlong = Math.random() * (longueur - 1);
+                double randhaut = Math.random() * (hauteur - 1);
+                if (!grille[(int) randhaut][(int) randlong].isMine()) {
+                    grille[(int) randhaut][(int) randlong].addMine();
+                    nombreMines--;
+                }
+            }
+        }
     }
-
 }
