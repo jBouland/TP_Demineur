@@ -76,11 +76,7 @@ public class Plateau2D extends Plateau {
     }
 
     @Override
-    public void addObserver(Observer o) {
-        for (int i = 0; i < hauteur; i++) {
-            for (int j = 0; j < longueur; j++) {
-                grille[i][j].addObserver(o);
-            }
-        }
+    public void addObserver(Observer o, int i, int j) {
+        grille[i][j].addObserver(o);
     }
 }

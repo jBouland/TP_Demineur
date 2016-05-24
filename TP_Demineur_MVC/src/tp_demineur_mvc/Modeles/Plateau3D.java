@@ -25,7 +25,7 @@ public class Plateau3D extends Plateau{
     }
 
     @Override
-    public void addObserver(Observer o) {
+    public void addObserver(Observer o, int i, int j) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -20,32 +20,23 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import tp_demineur_mvc.Modeles.Plateau2D;
 import tp_demineur_mvc.Modeles.Case;
+import tp_demineur_mvc.Vue.CaseVue;
 
 /**
  *
  * @author Epulapp
  */
-public class TP_Demineur_MVC extends Application implements Observer {
+public class TP_Demineur_MVC extends Application{
 
-    final int hauteur = 10;
-    final int largeur = 10;
+    int hauteur = 10;
+    int largeur = 10;
     final Plateau2D board = new Plateau2D(hauteur, largeur);
-    final ImageView[][] listCases = new ImageView[hauteur][largeur];
-
-    final Image caseClose = new Image("Assets/CaseClose.png");
-    final Image caseFlag = new Image("Assets/CaseFlag.png");
-    final Image case0 = new Image("Assets/Case0.png");
-    final Image case1 = new Image("Assets/Case1.png");
-    final Image case2 = new Image("Assets/Case2.png");
-    final Image case3 = new Image("Assets/Case3.png");
-    final Image case4 = new Image("Assets/Case4.png");
-    final Image caseMine = new Image("Assets/CaseMine.png");
+    final CaseVue[][] listCases = new CaseVue[hauteur][largeur];
 
     @Override
     public void start(Stage stage) {
 
         board.generateLevel(10);
-        board.addObserver(this);
         
         BorderPane border = new BorderPane();
         GridPane grid = new GridPane();
@@ -56,14 +47,10 @@ public class TP_Demineur_MVC extends Application implements Observer {
         border.setTop(hbox);
         border.setCenter(grid);
 
-        ImageView selectedImage = new ImageView();
-
-        selectedImage.setImage(caseClose);
-
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < largeur; j++) {
-                listCases[i][j] = new ImageView();
-                listCases[i][j].setImage(caseClose);
+                listCases[i][j] = new CaseVue();
+                board.addObserver(listCases[i][j], i, j);
                 grid.add(listCases[i][j], i, j);
                 listCases[i][j].setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
@@ -96,7 +83,7 @@ public class TP_Demineur_MVC extends Application implements Observer {
             }
         }
 
-        Scene scene = new Scene(border, 600, 600);
+        Scene scene = new Scene(border, 500, 500);
         // root.getChildren().addAll(selectedImage);
         scene.setRoot(border);
         stage.setTitle("Démineur");
@@ -109,64 +96,6 @@ public class TP_Demineur_MVC extends Application implements Observer {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    @Override
-    public void update(Observable o, Object o1) {
-        Case cObser = (Case) o;
-        if (cObser.isFlag()) {
-            for (int i = 0; i < hauteur; i++) {
-                for (int j = 0; j < largeur; j++) {
-                    if (cObser == board.getCase(i, j)) {
-                        listCases[i][j].setImage(caseFlag);
-                    }
-                }
-
-            }
-        } else {
-            for (int i = 0; i < hauteur; i++) {
-                for (int j = 0; j < largeur; j++) {
-                    Case c = board.getCase(i, j);
-                    if (c.getVisite()) {
-                        if (c.isMine()) {
-                            listCases[i][j].setImage(caseMine);
-                        } else {
-                            switch (c.getNombreMinesAutour()) {
-                                case 0:
-                                    listCases[i][j].setImage(case0);
-                                    break;
-                                case 1:
-                                    listCases[i][j].setImage(case1);
-                                    break;
-                                case 2:
-                                    listCases[i][j].setImage(case2);
-                                    break;
-                                case 3:
-                                    listCases[i][j].setImage(case3);
-                                    break;
-                                case 4:
-                                    listCases[i][j].setImage(case4);
-                                    break;
-                                case 5:
-                                    listCases[i][j].setImage(case0);
-                                    break;
-                                case 6:
-                                    listCases[i][j].setImage(case1);
-                                    break;
-                                case 7:
-                                    listCases[i][j].setImage(case2);
-                                    break;
-                                case 8:
-                                    listCases[i][j].setImage(case3);
-                                    break;
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-
     }
 
 }

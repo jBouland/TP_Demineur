@@ -16,7 +16,7 @@ public abstract class Plateau {
     
     public abstract ArrayList<Case> getVoisins(Case c);
     public abstract void generateLevel(int nombreMine);
-    public abstract void addObserver(Observer o);
+    public abstract void addObserver(Observer o, int i, int j);
     
     
     
