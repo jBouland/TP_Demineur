@@ -6,6 +6,7 @@
 package tp_demineur_mvc.Modeles;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 /**
  *
@@ -15,6 +16,7 @@ public abstract class Plateau {
     
     public abstract ArrayList<Case> getVoisins(Case c);
     public abstract void generateLevel(int nombreMine);
+    public abstract void addObserver(Observer o);
     
     
     

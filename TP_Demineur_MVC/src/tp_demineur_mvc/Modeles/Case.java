@@ -6,18 +6,17 @@
 package tp_demineur_mvc.Modeles;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author Epulapp
  */
-public class Case {
+public class Case extends Observable {
 
     public enum etat {
-
         vide,
         drapeau,
-        interrogation,
     }
     private boolean visite;
     private boolean mine;
@@ -53,33 +52,37 @@ public class Case {
         this.mine = true;
     }
     
-    
+    public boolean isFlag(){
+        return etatcase == etat.drapeau;
+    }
 
     public void majClick() {
         if (mine) {
             //perdre
         }
-        if (!visite && this.getNombreMinesAutour() == 0) {
+        if (!visite) {
             visite = true;
-            ArrayList<Case> casesVoisines = plateau.getVoisins(this);
-            for (Case c : casesVoisines) {
+            if (this.getNombreMinesAutour() == 0) {
+                ArrayList<Case> casesVoisines = plateau.getVoisins(this);
+                for (Case c : casesVoisines) {
 
-                c.majClick();
+                    c.majClick();
+                }
             }
-
         }
+        setChanged();
+        this.notifyObservers();
     }
 
     public void majClickdroit() {
         if (etatcase == etat.vide) {
             etatcase = etat.drapeau;
-        }
-        if (etatcase == etat.drapeau) {
-            etatcase = etat.interrogation;
-        }
-        if (etatcase == etat.interrogation) {
+        } else {
             etatcase = etat.vide;
         }
+
+        setChanged();
+        this.notifyObservers();
     }
 
 }

@@ -6,6 +6,7 @@
 package tp_demineur_mvc.Modeles;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 /**
  *
@@ -70,6 +71,15 @@ public class Plateau2D extends Plateau {
                     grille[(int) randhaut][(int) randlong].addMine();
                     nombreMines--;
                 }
+            }
+        }
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        for (int i = 0; i < hauteur; i++) {
+            for (int j = 0; j < longueur; j++) {
+                grille[i][j].addObserver(o);
             }
         }
     }

@@ -6,6 +6,7 @@
 package tp_demineur_mvc.Modeles;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
 /**
  *
@@ -20,6 +21,11 @@ public class Plateau3D extends Plateau{
 
     @Override
     public void generateLevel(int nombreMine) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addObserver(Observer o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
