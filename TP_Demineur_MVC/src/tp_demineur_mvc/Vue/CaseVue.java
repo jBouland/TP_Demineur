@@ -42,6 +42,10 @@ public class CaseVue extends ImageView implements Observer {
     @Override
     public void update(Observable o, Object o1) {
         Case c = (Case) o;
+        if(!c.getVisite() && !c.isFlag()){
+            this.setImage(caseClose);
+            return;
+        }
         if (c.isFlag()) {
             this.setImage(caseFlag);
         } else if (c.isMine()) {

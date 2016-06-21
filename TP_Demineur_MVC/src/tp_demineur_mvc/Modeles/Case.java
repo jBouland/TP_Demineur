@@ -15,6 +15,7 @@ import java.util.Observable;
 public class Case extends Observable {
 
     public enum etat {
+
         vide,
         drapeau,
     }
@@ -27,6 +28,14 @@ public class Case extends Observable {
         visite = false;
         plateau = p;
         etatcase = etat.vide;
+    }
+
+    public void reset() {
+        visite = false;
+        etatcase = etat.vide;
+        mine = false;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public boolean getVisite() {
@@ -51,14 +60,22 @@ public class Case extends Observable {
     public void addMine() {
         this.mine = true;
     }
-    
-    public boolean isFlag(){
+
+    public boolean isFlag() {
         return etatcase == etat.drapeau;
+    }
+
+    public void setVisite() {
+        visite = true;
+        setChanged();
+        this.notifyObservers();
     }
 
     public void majClick() {
         if (mine) {
-            //perdre
+            plateau.die();
+            setChanged();
+            this.notifyObservers();
         }
         if (!visite) {
             visite = true;
@@ -84,5 +101,4 @@ public class Case extends Observable {
         setChanged();
         this.notifyObservers();
     }
-
 }

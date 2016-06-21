@@ -63,6 +63,8 @@ public class Plateau2D extends Plateau {
 
     @Override
     public void generateLevel(int nombreMines) {
+        
+        reset();
         if (nombreMines < longueur * hauteur) {
             while (nombreMines > 0) {
                 double randlong = Math.random() * (longueur - 1);
@@ -75,8 +77,24 @@ public class Plateau2D extends Plateau {
         }
     }
 
-    @Override
+    private void reset() {
+        for (int i = 0; i < hauteur; i++) {
+            for (int j = 0; j < longueur; j++) {
+                grille[i][j].reset();
+            }
+        }
+    }
+
     public void addObserver(Observer o, int i, int j) {
         grille[i][j].addObserver(o);
+    }
+
+    @Override
+    public void revealMap() {
+        for (int i = 0; i < hauteur; i++) {
+            for (int j = 0; j < longueur; j++) {
+                grille[i][j].setVisite();
+            }
+        }
     }
 }
