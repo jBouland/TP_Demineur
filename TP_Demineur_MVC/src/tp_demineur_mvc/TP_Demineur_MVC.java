@@ -30,12 +30,13 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.stage.WindowEvent;
 import tp_demineur_mvc.Modeles.Plateau;
+import tp_demineur_mvc.Vue.Plateau2DVue;
 
 /**
  *
  * @author Epulapp
  */
-public class TP_Demineur_MVC extends Application implements Observer {
+public class TP_Demineur_MVC extends Application {
 
     int hauteur = 10;
     int largeur = 10;
@@ -52,69 +53,12 @@ public class TP_Demineur_MVC extends Application implements Observer {
     public void start(Stage stage) {
 
         board.generateLevel(nombreMine);
-        board.addObserver(this);
         stage.getIcons().add(imgIcon);
-        BorderPane border = new BorderPane();
-        GridPane grid = new GridPane();
-        ImageView imageHaut = new ImageView(imgEntete);
-        labelScore = new Label("Score - " + Integer.toString(board.getScore()));
-        labelScore.setStyle("-fx-text-fill: white;\n"
-                + "   -fx-font-size: 18;");
-        buttonRestart = new Button("Restart");
-        buttonRestart.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                labelScore.setText("Score - " + Integer.toString(board.getScore()));
-            }
-        });
-        BorderPane bbox = new BorderPane();
-        border.setTop(bbox);
-        bbox.setPrefHeight(100);
-        bbox.setStyle("-fx-background-color: #000000;");
-        bbox.setCenter(imageHaut);
-        bbox.setRight(buttonRestart);
-        bbox.setLeft(labelScore);
-        border.setCenter(grid);
+        Plateau2DVue plateau = new Plateau2DVue(board, listCases);
 
-        for (int i = 0; i < hauteur; i++) {
-            for (int j = 0; j < largeur; j++) {
-                listCases[i][j] = new CaseVue();
-                board.addObserver(listCases[i][j], i, j);
-                grid.add(listCases[i][j], i, j);
-                listCases[i][j].setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent t) {
-                        if (t.getButton() == MouseButton.SECONDARY) {
-                            ImageView imageSource = (ImageView) t.getSource();
-                            for (int i = 0; i < hauteur; i++) {
-                                for (int j = 0; j < largeur; j++) {
-                                    if (imageSource.equals(listCases[i][j])) {
-                                        Case c = board.getCase(i, j);
-                                        c.majClickdroit();
-                                    }
-                                }
-                            }
-                        }
-                        if (t.getButton() == MouseButton.PRIMARY) {
-                            ImageView imageSource = (ImageView) t.getSource();
-                            for (int i = 0; i < hauteur; i++) {
-                                for (int j = 0; j < largeur; j++) {
-                                    if (imageSource.equals(listCases[i][j])) {
-                                        Case c = board.getCase(i, j);
-                                        c.majClick();
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        Scene scene = new Scene(border, 500, 600);
+        Scene scene = new Scene(plateau, 500, 600);
         // root.getChildren().addAll(selectedImage);
-        scene.setRoot(border);
+        scene.setRoot(plateau);
         stage.setTitle("Démineur");
         stage.setScene(scene);
         stage.show();
@@ -134,20 +78,5 @@ public class TP_Demineur_MVC extends Application implements Observer {
         launch(args);
     }
 
-    @Override
-    public void update(Observable o, Object o1) {
-        if (o instanceof Plateau) {
-            if (board.isDead()) {
-                labelScore.setText("DEFEAT");
-            }
-            else if(board.isFinished()){
-                labelScore.setText("Victory ! Score : "+Integer.toString(board.getScore()));
-            }
-            else {
-                labelScore.setText("Score - " + Integer.toString(board.getScore()));
-            }
-
-        }
-    }
 
 }

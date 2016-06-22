@@ -39,7 +39,6 @@ public class Plateau2DVue extends BorderPane implements Observer {
 
         super();
         this.board = board2D;
-        board.generateLevel(nombreMine);
         board.addObserver(this);
         GridPane grid = new GridPane();
         ImageView imageHaut = new ImageView(imgEntete);
@@ -104,8 +103,12 @@ public class Plateau2DVue extends BorderPane implements Observer {
     public void update(Observable o, Object o1) {
         if (o instanceof Plateau) {
             if (board.isDead()) {
-                labelScore.setText("Defeat");
-            } else {
+                labelScore.setText("DEFEAT");
+            }
+            else if(board.isFinished()){
+                labelScore.setText("Victory ! Score : "+Integer.toString(board.getScore()));
+            }
+            else {
                 labelScore.setText("Score - " + Integer.toString(board.getScore()));
             }
 
