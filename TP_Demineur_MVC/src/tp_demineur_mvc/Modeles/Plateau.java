@@ -21,6 +21,7 @@ public abstract class Plateau extends Observable {
     private int score = 100;
     private boolean isDead = false;
     Timer timer;
+    protected int nombreMines;
 
     public abstract ArrayList<Case> getVoisins(Case c);
 
@@ -35,13 +36,15 @@ public abstract class Plateau extends Observable {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        if (!isDead) {
+                        if (!isDead && !isFinished()) {
                             score--;
-                            setChanged();
-                            notifyObservers();
-                        }else{
+                         
+                        }
+                        else if(!isFinished()){
                             score = 0;
                         }
+                        setChanged();
+                            notifyObservers();
 
                     }
                 });
@@ -52,7 +55,8 @@ public abstract class Plateau extends Observable {
     public boolean isDead() {
         return isDead;
     }
-
+    public abstract boolean isFinished();
+    
     public void die() {
         isDead = true;
         this.revealMap();

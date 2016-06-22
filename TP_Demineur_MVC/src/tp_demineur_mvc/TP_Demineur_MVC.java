@@ -139,7 +139,11 @@ public class TP_Demineur_MVC extends Application implements Observer {
         if (o instanceof Plateau) {
             if (board.isDead()) {
                 labelScore.setText("DEFEAT");
-            } else {
+            }
+            else if(board.isFinished()){
+                labelScore.setText("Victory ! Score : "+Integer.toString(board.getScore()));
+            }
+            else {
                 labelScore.setText("Score - " + Integer.toString(board.getScore()));
             }
 

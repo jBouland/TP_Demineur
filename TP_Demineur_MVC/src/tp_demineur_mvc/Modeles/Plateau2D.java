@@ -64,7 +64,7 @@ public class Plateau2D extends Plateau {
 
     @Override
     public void generateLevel(int nombreMines) {
-        
+        this.nombreMines = nombreMines;
         reset();
         if (nombreMines < longueur * hauteur) {
             while (nombreMines > 0) {
@@ -97,5 +97,21 @@ public class Plateau2D extends Plateau {
                 grille[i][j].setVisite();
             }
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        int count = 0;
+        for (int i = 0; i < hauteur; i++) {
+            for (int j = 0; j < longueur; j++) {
+                if(grille[i][j].getVisite()){
+                    count++;
+                }
+            }
+        }
+        if(count == longueur*hauteur-nombreMines){
+            return true;
+        }
+        return false;
     }
 }
