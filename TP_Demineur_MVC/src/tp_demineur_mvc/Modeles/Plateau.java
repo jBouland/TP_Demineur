@@ -18,8 +18,8 @@ import javafx.application.Platform;
  */
 public abstract class Plateau extends Observable {
 
-    private int score = 100;
-    private boolean isDead = false;
+    protected int score = 100;
+    protected boolean isDead = false;
     Timer timer;
     protected int nombreMines;
 
@@ -28,7 +28,7 @@ public abstract class Plateau extends Observable {
     public abstract void generateLevel(int nombreMine);
 
     public abstract void revealMap();
-
+    
     public Plateau() {
         timer = new Timer();
 
