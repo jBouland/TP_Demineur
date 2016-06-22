@@ -35,7 +35,7 @@ import tp_demineur_mvc.Modeles.Plateau;
  *
  * @author Epulapp
  */
-public class TP_Demineur_MVC extends Application implements Observer {
+public class TP_Demineur_MVC extends Application implements Observer{
 
     int hauteur = 10;
     int largeur = 10;
@@ -64,6 +64,7 @@ public class TP_Demineur_MVC extends Application implements Observer {
         buttonRestart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                board.generateLevel(10);
                 labelScore.setText("Score - " + Integer.toString(board.getScore()));
             }
         });
@@ -118,13 +119,13 @@ public class TP_Demineur_MVC extends Application implements Observer {
         stage.setTitle("Démineur");
         stage.setScene(scene);
         stage.show();
-
+        
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                System.out.println("Stage is closing");
-                System.exit(0);
-            }
-        });
+          public void handle(WindowEvent we) {
+              System.out.println("Stage is closing");
+              System.exit(0);
+          }
+      });        
     }
 
     /**
@@ -136,13 +137,13 @@ public class TP_Demineur_MVC extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object o1) {
-        if (o instanceof Plateau) {
-            if (board.isDead()) {
-                labelScore.setText("DEFEAT");
-            } else {
+        if(o instanceof Plateau){
+            if(board.isDead()){
+                 labelScore.setText("Defeat");
+            }else{
                 labelScore.setText("Score - " + Integer.toString(board.getScore()));
             }
-
+            
         }
     }
 
