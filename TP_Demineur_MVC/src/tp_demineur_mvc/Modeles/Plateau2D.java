@@ -19,6 +19,7 @@ public class Plateau2D extends Plateau {
     private int hauteur;
 
     public Plateau2D(int hauteur, int longueur) {
+        super();
         this.hauteur = hauteur;
         this.longueur = longueur;
 

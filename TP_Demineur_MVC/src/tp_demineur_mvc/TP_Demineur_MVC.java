@@ -29,17 +29,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.stage.WindowEvent;
+import tp_demineur_mvc.Modeles.Plateau;
 
 /**
  *
  * @author Epulapp
  */
-public class TP_Demineur_MVC extends Application {
+public class TP_Demineur_MVC extends Application implements Observer {
 
     int hauteur = 10;
     int largeur = 10;
     int nombreMine = 10;
-    int score = 100;
     final Plateau2D board = new Plateau2D(hauteur, largeur);
     final CaseVue[][] listCases = new CaseVue[hauteur][largeur];
     final static Image imgEntete = new Image("Assets/Code.PNG");
@@ -52,20 +52,19 @@ public class TP_Demineur_MVC extends Application {
     public void start(Stage stage) {
 
         board.generateLevel(nombreMine);
+        board.addObserver(this);
         stage.getIcons().add(imgIcon);
         BorderPane border = new BorderPane();
         GridPane grid = new GridPane();
         ImageView imageHaut = new ImageView(imgEntete);
-        labelScore = new Label("Score - " + Integer.toString(score));
+        labelScore = new Label("Score - " + Integer.toString(board.getScore()));
         labelScore.setStyle("-fx-text-fill: white;\n"
                 + "   -fx-font-size: 18;");
         buttonRestart = new Button("Restart");
         buttonRestart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                board.generateLevel(10);
-                score = 100;
-                labelScore.setText("Score - " + Integer.toString(score));
+                labelScore.setText("Score - " + Integer.toString(board.getScore()));
             }
         });
         BorderPane bbox = new BorderPane();
@@ -112,18 +111,6 @@ public class TP_Demineur_MVC extends Application {
                 });
             }
         }
-        timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        score--;
-                        labelScore.setText("Score - " + Integer.toString(score));
-                    }
-                });
-            }
-        }, 1000 , 1000);
 
         Scene scene = new Scene(border, 500, 600);
         // root.getChildren().addAll(selectedImage);
@@ -131,13 +118,13 @@ public class TP_Demineur_MVC extends Application {
         stage.setTitle("Démineur");
         stage.setScene(scene);
         stage.show();
-        
+
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-              System.out.println("Stage is closing");
-              System.exit(0);
-          }
-      });        
+            public void handle(WindowEvent we) {
+                System.out.println("Stage is closing");
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -145,6 +132,18 @@ public class TP_Demineur_MVC extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        if (o instanceof Plateau) {
+            if (board.isDead()) {
+                labelScore.setText("DEFEAT");
+            } else {
+                labelScore.setText("Score - " + Integer.toString(board.getScore()));
+            }
+
+        }
     }
 
 }
