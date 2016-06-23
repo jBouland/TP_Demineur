@@ -82,7 +82,6 @@ public class Case extends Observable {
             if (this.getNombreMinesAutour() == 0) {
                 ArrayList<Case> casesVoisines = plateau.getVoisins(this);
                 for (Case c : casesVoisines) {
-
                     c.majClick();
                 }
             }
@@ -92,12 +91,11 @@ public class Case extends Observable {
     }
 
     public void majClickdroit() {
-        if (etatcase == etat.vide) {
+        if (etatcase == etat.vide && !visite) {
             etatcase = etat.drapeau;
         } else {
             etatcase = etat.vide;
         }
-
         setChanged();
         this.notifyObservers();
     }

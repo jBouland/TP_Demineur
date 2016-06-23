@@ -5,31 +5,17 @@
  */
 package tp_demineur_mvc;
 
-import java.util.Observable;
-import java.util.Observer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import tp_demineur_mvc.Modeles.Plateau2D;
-import tp_demineur_mvc.Modeles.Case;
 import tp_demineur_mvc.Vue.CaseVue;
 import java.util.Timer;
-import java.util.TimerTask;
-import javafx.application.Platform;
 import javafx.stage.WindowEvent;
-import tp_demineur_mvc.Modeles.Plateau;
 import tp_demineur_mvc.Vue.Plateau2DVue;
 
 /**

@@ -11,6 +11,6 @@ import javafx.scene.layout.BorderPane;
  *
  * @author Epulapp
  */
-public class PlateauVue extends BorderPane{
+public abstract class PlateauVue extends BorderPane{
     
 }
