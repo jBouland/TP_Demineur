@@ -80,7 +80,7 @@ public class Plateau2D extends Plateau {
 
     private void reset() {
         isDead = false;
-        score = 100;
+        score = 99;
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < longueur; j++) {
                 grille[i][j].reset();
