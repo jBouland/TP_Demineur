@@ -25,7 +25,7 @@ import tp_demineur_mvc.Modeles.Plateau2D;
  *
  * @author Epulapp
  */
-public class Plateau2DVue extends BorderPane implements Observer {
+public class Plateau2DVue extends PlateauVue implements Observer {
 
     final static Image imgEntete = new Image("Assets/Code.PNG");
     private final Button buttonRestart;
