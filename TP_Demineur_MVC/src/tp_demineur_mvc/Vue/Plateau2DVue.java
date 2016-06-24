@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import tp_demineur_mvc.Modeles.Case;
 import tp_demineur_mvc.Modeles.Plateau;
 import tp_demineur_mvc.Modeles.Plateau2D;
+import javafx.application.Platform;
 
 /**
  *
@@ -100,19 +101,24 @@ public class Plateau2DVue extends PlateauVue implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object o1) {
-        if (o instanceof Plateau) {
-            if (board.isDead()) {
-                labelScore.setText("DEFEAT");
-            }
-            else if(board.isFinished()){
-                labelScore.setText("Victory ! Score : "+Integer.toString(board.getScore()));
-            }
-            else {
-                labelScore.setText("Score - " + Integer.toString(board.getScore()));
+    public void update(final Observable o, Object o1) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (o instanceof Plateau) {
+                    if (board.isDead()) {
+                        labelScore.setText("DEFEAT");
+                    } else if (board.isFinished()) {
+                        labelScore.setText("Victory ! Score : " + Integer.toString(board.getScore()));
+                    } else {
+                        labelScore.setText("Score - " + Integer.toString(board.getScore()));
+                    }
+
+                }
             }
 
-        }
+        });
+
     }
 
 }

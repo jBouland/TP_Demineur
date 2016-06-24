@@ -28,35 +28,40 @@ public abstract class Plateau extends Observable {
     public abstract void generateLevel(int nombreMine);
 
     public abstract void revealMap();
-    
+
     public Plateau() {
         timer = new Timer();
-
-        timer.schedule(new TimerTask() {
+        final TimerTask tmt = new TimerTask() {
+            @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        if (!isDead && !isFinished()) {
-                            score--;
-                         
-                        }
-                        else if(!isFinished()){
-                            score = 0;
-                        }
-                        setChanged();
-                            notifyObservers();
+                if (!isDead && !isFinished()) {
+                    score--;
 
-                    }
-                });
+                } else if (!isFinished()) {
+                    score = 0;
+                }
+                setChanged();
+                notifyObservers();
             }
-        }, 1000, 1000);
+        };
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                timer.scheduleAtFixedRate(tmt, 1000, 1000);
+
+            }
+
+        });
+        t.run();
     }
 
     public boolean isDead() {
         return isDead;
     }
+
     public abstract boolean isFinished();
-    
+
     public void die() {
         isDead = true;
         this.revealMap();
