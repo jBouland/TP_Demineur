@@ -18,7 +18,7 @@ import javafx.application.Platform;
  */
 public abstract class Plateau extends Observable {
 
-    protected int score = 100;
+    protected int score = 99;
     protected boolean isDead = false;
     Timer timer;
     protected int nombreMines;
