@@ -7,6 +7,7 @@ package tp_demineur_mvc.Vue;
 
 import java.util.Observable;
 import java.util.Observer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -61,7 +62,7 @@ public class Plateau2DVue extends PlateauVue implements Observer {
         bbox.setRight(buttonRestart);
         bbox.setLeft(labelScore);
         this.setCenter(grid);
-        
+
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < largeur; j++) {
                 final int fi = i;
@@ -74,13 +75,13 @@ public class Plateau2DVue extends PlateauVue implements Observer {
                     public void handle(MouseEvent t) {
                         if (t.getButton() == MouseButton.SECONDARY) {
                             ImageView imageSource = (ImageView) t.getSource();
-                                Case c = board.getCase(fi, fj);
-                                c.majClickdroit();
+                            Case c = board.getCase(fi, fj);
+                            c.majClickdroit();
                         }
                         if (t.getButton() == MouseButton.PRIMARY) {
                             ImageView imageSource = (ImageView) t.getSource();
-                                Case c = board.getCase(fi, fj);
-                                c.majClick();
+                            Case c = board.getCase(fi, fj);
+                            c.majClick();
                         }
                     }
                 });
@@ -89,19 +90,24 @@ public class Plateau2DVue extends PlateauVue implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object o1) {
-        if (o instanceof Plateau) {
-            if (board.isDead()) {
-                labelScore.setText("DEFEAT");
-            }
-            else if(board.isFinished()){
-                labelScore.setText("Victory ! Score : "+Integer.toString(board.getScore()));
-            }
-            else {
-                labelScore.setText("Score - " + Integer.toString(board.getScore()));
+    public void update(final Observable o, Object o1) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (o instanceof Plateau) {
+                    if (board.isDead()) {
+                        labelScore.setText("DEFEAT");
+                    } else if (board.isFinished()) {
+                        labelScore.setText("Victory ! Score : " + Integer.toString(board.getScore()));
+                    } else {
+                        labelScore.setText("Score - " + Integer.toString(board.getScore()));
+                    }
+
+                }
             }
 
-        }
+        });
+
     }
 
 }
