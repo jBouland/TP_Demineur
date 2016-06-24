@@ -61,9 +61,11 @@ public class Plateau2DVue extends PlateauVue implements Observer {
         bbox.setRight(buttonRestart);
         bbox.setLeft(labelScore);
         this.setCenter(grid);
-
+        
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < largeur; j++) {
+                final int fi = i;
+                final int fj = j;
                 listCases[i][j] = new CaseVue();
                 board.addObserver(listCases[i][j], i, j);
                 grid.add(listCases[i][j], i, j);
@@ -72,26 +74,13 @@ public class Plateau2DVue extends PlateauVue implements Observer {
                     public void handle(MouseEvent t) {
                         if (t.getButton() == MouseButton.SECONDARY) {
                             ImageView imageSource = (ImageView) t.getSource();
-                            for (int i = 0; i < hauteur; i++) {
-                                for (int j = 0; j < largeur; j++) {
-                                    if (imageSource.equals(listCases[i][j])) {
-                                        Case c = board.getCase(i, j);
-                                        c.majClickdroit();
-                                    }
-                                }
-                            }
+                                Case c = board.getCase(fi, fj);
+                                c.majClickdroit();
                         }
                         if (t.getButton() == MouseButton.PRIMARY) {
                             ImageView imageSource = (ImageView) t.getSource();
-                            for (int i = 0; i < hauteur; i++) {
-                                for (int j = 0; j < largeur; j++) {
-                                    if (imageSource.equals(listCases[i][j])) {
-                                        Case c = board.getCase(i, j);
-                                        c.majClick();
-                                        break;
-                                    }
-                                }
-                            }
+                                Case c = board.getCase(fi, fj);
+                                c.majClick();
                         }
                     }
                 });
